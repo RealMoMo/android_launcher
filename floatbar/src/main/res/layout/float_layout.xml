@@ -18,4 +18,10 @@
         android:layout_height="50dp"
         android:src="@mipmap/ic_launcher" />
 
+    <Button
+        android:id="@+id/fb_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="remove"/>
+
 </LinearLayout>

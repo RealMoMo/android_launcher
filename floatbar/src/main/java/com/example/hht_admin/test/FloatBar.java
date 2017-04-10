@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import java.lang.reflect.Field;
@@ -17,13 +18,14 @@ import java.lang.reflect.Field;
 /**
  * Created by realmo on 2017/4/10.
  */
-public class FloatBar extends Service
-{
+public class FloatBar extends Service implements View.OnClickListener {
     //定义浮动窗口布局
     LinearLayout mFloatLayout;
     WindowManager.LayoutParams wmParams;
     //创建浮动窗口设置布局参数的对象
     WindowManager mWindowManager;
+
+    Button removeBtn;
 
 
     int latestParamsY=0;//记录拖动前的坐标Y值
@@ -109,11 +111,9 @@ public class FloatBar extends Service
         LayoutInflater inflater = LayoutInflater.from(getApplication());
         //获取浮动窗口视图所在布局
         mFloatLayout = (LinearLayout) inflater.inflate(R.layout.float_layout, null);
-        //浮动窗口按钮
-//        mFloatView = (ImageButton)mFloatLayout.findViewById(R.id.float_id);
-//        mHideFloatLayout=(LinearLayout) mFloatLayout.findViewById(R.id.linear_hidden);
-//        mHomeBtn =(ImageButton) mFloatLayout.findViewById(R.id.home_btn);
-//        mBackBtn = (ImageButton) mFloatLayout.findViewById(R.id.back_btn);
+        //浮动窗口的移除按钮
+        removeBtn = (Button) mFloatLayout.findViewById(R.id.fb_btn);
+        removeBtn.setOnClickListener(this);
 
         //设置悬浮窗口长宽数据
         wmParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
@@ -213,4 +213,28 @@ public class FloatBar extends Service
         return statusBarHeight;
     }
 
+
+    /**
+     * 将小悬浮窗从屏幕上移除。
+     *
+     */
+    public  void removeSmallWindow() {
+        if (mFloatLayout != null) {
+
+            mWindowManager.removeView(mFloatLayout);
+            mFloatLayout = null;
+            wmParams = null;
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.fb_btn:{
+                removeSmallWindow();
+                //同时关闭服务s
+                stopSelf();
+            }break;
+        }
+    }
 }

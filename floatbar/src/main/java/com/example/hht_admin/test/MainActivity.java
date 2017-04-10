@@ -23,4 +23,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this,FloatBar.class);
         startService(intent);
     }
+
+
 }
