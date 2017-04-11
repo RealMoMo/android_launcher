@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 public class CustomDialogActivity extends Activity {
 
@@ -27,4 +29,10 @@ public class CustomDialogActivity extends Activity {
         getWindow().setGravity(Gravity.RIGHT);       //设置靠右对齐
     }
 
+
+
+    public void touchTest(View view) {
+        Toast.makeText(this,"TouchTextView",Toast.LENGTH_SHORT).show();
+        this.finish();
+    }
 }
