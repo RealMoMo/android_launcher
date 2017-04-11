@@ -24,18 +24,14 @@ public class FloatBar extends Service implements View.OnClickListener {
     WindowManager.LayoutParams wmParams;
     //创建浮动窗口设置布局参数的对象
     WindowManager mWindowManager;
-
+    //移除浮动窗的按钮
     Button removeBtn;
-
-
-    int latestParamsY=0;//记录拖动前的坐标Y值
 
 
     /**
      * 记录系统状态栏的高度
      */
     private static int statusBarHeight;
-
 
 
     /**
@@ -127,6 +123,7 @@ public class FloatBar extends Service implements View.OnClickListener {
         mFloatLayout.measure(View.MeasureSpec.makeMeasureSpec(0,
                 View.MeasureSpec.UNSPECIFIED), View.MeasureSpec
                 .makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+
         //设置监听浮动窗口的触摸移动
         mFloatLayout.setOnTouchListener(new View.OnTouchListener()
         {
@@ -152,8 +149,7 @@ public class FloatBar extends Service implements View.OnClickListener {
                     case MotionEvent.ACTION_UP:
                         // 如果手指离开屏幕时，xDownInScreen和xInScreen相等，且yDownInScreen和yInScreen相等，则视为触发了单击事件。
                         if ((xDownInScreen == xInScreen && yDownInScreen == yInScreen) || (int) (yInScreen - yInView) < 30) {
-                           // openBigWindow();
-//                            displayHidden();
+                            //执行相应的处理
                         }
                         break;
                     default:
@@ -231,6 +227,7 @@ public class FloatBar extends Service implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.fb_btn:{
+                //移除悬浮窗
                 removeSmallWindow();
                 //同时关闭服务s
                 stopSelf();
